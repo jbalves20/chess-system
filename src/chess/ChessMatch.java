@@ -57,7 +57,8 @@ public class ChessMatch {
             
             setupPiece('p', i);
         }
-        board.placePiece(new Rook(board, Color.BLACK), new Position(0, 7));
+        //BoardException test:
+        //board.placePiece(new Rook(board, Color.BLACK), new Position(0, 8));
     }
 
     
