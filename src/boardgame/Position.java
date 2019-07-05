@@ -11,8 +11,8 @@ package boardgame;
  */
 public class Position {
     
-    private int column;
     private int row;
+    private int column;
 
     public Position(int column, int row) {
         this.column = column;
