@@ -6,6 +6,7 @@
 package chess;
 
 import boardgame.Board;
+import boardgame.Piece;
 import boardgame.Position;
 import chess.pieces.Bishop;
 import chess.pieces.King;
@@ -35,6 +36,30 @@ public class ChessMatch {
             }
         }
         return mat;
+    }
+    
+    public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition){
+        Position source = sourcePosition.toPosition();
+        Position target = targetPosition.toPosition();
+        
+        validateSourcePosition(source);
+        Piece capturedPiece = makeMove(source, target);
+        
+        return (ChessPiece) capturedPiece;
+    }
+    
+    private void validateSourcePosition(Position position){
+        if (!board.isThereAPiece(position)){
+            throw new ChessException("There is no piece at this position");
+        }
+    }
+    
+    private Piece makeMove(Position source, Position target){
+        Piece p = board.removePiece(source);
+        Piece capturedPiece = board.removePiece(target);
+        board.placePiece(p, target);
+        
+        return capturedPiece;
     }
     
     private void placeNewPiece(char column, int row, ChessPiece piece){
@@ -100,33 +125,4 @@ public class ChessMatch {
         //BoardException test:
         //board.placePiece(new Rook(board, Color.BLACK), new Position(0, 8));
     }
-
-//    private void setupPiece (char type, int column){
-//        switch (type){
-//            case 'r':
-//                board.placePiece(new Rook(board, Color.BLACK), new Position(0, column));
-//                board.placePiece(new Rook(board, Color.WHITE), new Position(7, column));
-//                break;
-//            case 'n':
-//                board.placePiece(new Knight(board, Color.BLACK), new Position(0, column));
-//                board.placePiece(new Knight(board, Color.WHITE), new Position(7, column));
-//                break;
-//            case 'b':
-//                board.placePiece(new Bishop(board, Color.BLACK), new Position(0, column));
-//                board.placePiece(new Bishop(board, Color.WHITE), new Position(7, column));
-//                break;
-//            case 'k':
-//                board.placePiece(new King(board, Color.BLACK), new Position(0, column));
-//                board.placePiece(new King(board, Color.WHITE), new Position(7, column));
-//                break;
-//            case 'q':
-//                board.placePiece(new Queen(board, Color.BLACK), new Position(0, column));
-//                board.placePiece(new Queen(board, Color.WHITE), new Position(7, column));
-//                break;
-//            case 'p':
-//                board.placePiece(new Pawn(board, Color.BLACK), new Position(1, column));
-//                board.placePiece(new Pawn(board, Color.WHITE), new Position(6, column));
-//                break;
-//        }
-//    }
 }
