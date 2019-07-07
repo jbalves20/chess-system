@@ -110,7 +110,7 @@ public class ChessMatch {
                     case 3:
                         placeNewPiece('d', 8, new King(board, black));
                         placeNewPiece('d', 7, new Pawn(board, black));
-                        placeNewPiece('d', 2, new Pawn(board, white));
+                        //placeNewPiece('d', 2, new Pawn(board, white));
                         placeNewPiece('d', 1, new King(board, white));
                         break;
                     case 4:
