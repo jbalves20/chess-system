@@ -5,6 +5,7 @@
  */
 package application;
 
+import chess.ChessMatch;
 import chess.ChessPiece;
 import chess.ChessPosition;
 import chess.Color;
@@ -61,6 +62,13 @@ public class UI {
         catch (RuntimeException e){
             throw new InputMismatchException("Error reading ChessPosition. Values should be within the range of a1 to h8");
         }
+    }
+    
+    public static void printMatch(ChessMatch chessMatch){
+        printBoard(chessMatch.getPieces());
+        System.out.println();
+        System.out.print("Turn: " + chessMatch.getTurn());
+        System.out.println(" (" + chessMatch.getCurrentPlayer() + " player's turn)");
     }
     
     public static void printBoard(ChessPiece[][] pieces, boolean[][] possibleMoves){

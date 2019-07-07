@@ -12,4 +12,9 @@ package chess;
 public enum Color {
     BLACK,
     WHITE;
+    
+    @Override
+    public String toString(){
+        return this == WHITE ? "White" : "Black";
+    }
 }
