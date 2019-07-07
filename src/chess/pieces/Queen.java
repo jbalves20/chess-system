@@ -23,4 +23,10 @@ public class Queen extends ChessPiece {
     public String toString(){
         return "Q";
     }
+
+    @Override
+    public boolean[][] possibleMoves() {
+        boolean[][] matrix = new boolean[getBoard().getRows()][getBoard().getColumns()];
+        return matrix;
+    }
 }
