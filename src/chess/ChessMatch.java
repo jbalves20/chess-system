@@ -217,14 +217,14 @@ public class ChessMatch {
         Color black = Color.BLACK;
         Color white = Color.WHITE;
         
-        // Checkmate test:
-        placeNewPiece('a', 8, new King (board, black));
-        placeNewPiece('b', 8, new Rook (board, black));
-        placeNewPiece('e', 1, new King (board, white));
-        placeNewPiece('d', 1, new Rook (board, white));
-        placeNewPiece('h', 7, new Rook (board, white));
+//        // Checkmate test:
+//        placeNewPiece('a', 8, new King (board, black));
+//        placeNewPiece('b', 8, new Rook (board, black));
+//        placeNewPiece('e', 1, new King (board, white));
+//        placeNewPiece('d', 1, new Rook (board, white));
+//        placeNewPiece('h', 7, new Rook (board, white));
         
-        /*for(int i = 0; i < board.getColumns(); i++){
+        for(int i = 0; i < board.getColumns(); i++){
             switch(i){
                     case 0:
                         placeNewPiece('a', 8, new Rook(board, black));
@@ -275,7 +275,7 @@ public class ChessMatch {
                         placeNewPiece('h', 1, new Rook(board, white));
                         break;
             }
-        }*/
+        }
         //BoardException test:
         //board.placePiece(new Rook(board, Color.BLACK), new Position(0, 8));
     }
