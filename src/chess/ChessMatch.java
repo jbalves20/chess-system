@@ -351,14 +351,14 @@ public class ChessMatch {
         for(int i = 0; i < board.getColumns(); i++){
             switch(i){
                     case 0:
-                        //placeNewPiece('a', 8, new Rook(board, black));
-                        //placeNewPiece('a', 7, new Pawn(board, black, this));
-                        placeNewPiece('a', 7, new Pawn(board, white, this));
+                        placeNewPiece('a', 8, new Rook(board, black));
+                        placeNewPiece('a', 7, new Pawn(board, black, this));
+                        placeNewPiece('a', 2, new Pawn(board, white, this));
                         placeNewPiece('a', 1, new Rook(board, white));
                         break;
                     case 1:
-                        //placeNewPiece('b', 8, new Knight(board, black));
-                        //placeNewPiece('b', 7, new Pawn(board, black, this));
+                        placeNewPiece('b', 8, new Knight(board, black));
+                        placeNewPiece('b', 7, new Pawn(board, black, this));
                         placeNewPiece('b', 2, new Pawn(board, white, this));
                         placeNewPiece('b', 1, new Knight(board, white));
                         break;
@@ -389,14 +389,14 @@ public class ChessMatch {
                     case 6:
                         placeNewPiece('g', 8, new Knight(board, black));
                         placeNewPiece('g', 7, new Pawn(board, black, this));
-                        //placeNewPiece('g', 2, new Pawn(board, white, this));
-                        //placeNewPiece('g', 1, new Knight(board, white));
+                        placeNewPiece('g', 2, new Pawn(board, white, this));
+                        placeNewPiece('g', 1, new Knight(board, white));
                         break;
                     case 7:
                         placeNewPiece('h', 8, new Rook(board, black));
                         placeNewPiece('h', 7, new Pawn(board, black, this));
-                        //placeNewPiece('h', 2, new Pawn(board, white, this));
-                        //placeNewPiece('h', 1, new Rook(board, white));
+                        placeNewPiece('h', 2, new Pawn(board, white, this));
+                        placeNewPiece('h', 1, new Rook(board, white));
                         break;
             }
         }
