@@ -14,6 +14,7 @@ import chess.pieces.Knight;
 import chess.pieces.Pawn;
 import chess.pieces.Queen;
 import chess.pieces.Rook;
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,6 +31,7 @@ public class ChessMatch {
     private boolean check;
     private boolean checkMate;
     private ChessPiece enPassantVulnerable;
+    private ChessPiece promoted;
     
     private final List<Piece> piecesOnTheBoard = new ArrayList<>();
     private final List<Piece> capturedPieces = new ArrayList<>();
@@ -59,6 +61,10 @@ public class ChessMatch {
 
     public ChessPiece getEnPassantVulnerable() {
         return enPassantVulnerable;
+    }
+
+    public ChessPiece getPromoted() {
+        return promoted;
     }
     
     public ChessPiece[][] getPieces(){
@@ -92,6 +98,16 @@ public class ChessMatch {
         }
         
         ChessPiece movedPiece = (ChessPiece)board.piece(target);
+        
+        // Special move: Promotion
+        promoted = null;
+        if (movedPiece instanceof Pawn){
+            if ((movedPiece.getColor() == Color.WHITE && target.getRow() == 0) || 
+                    (movedPiece.getColor() == Color.BLACK && target.getRow() == 7)){
+                promoted = (ChessPiece)board.piece(target);
+                promoted = replacePromotedPiece("Q");
+            }
+        }
         
         check = testCheck(opponent(currentPlayer));
         
@@ -131,6 +147,32 @@ public class ChessMatch {
         if (!board.piece(source).isMovePossible(target)){
             throw new ChessException("The selected piece can not be moved to the target position.");
         }
+    }
+    
+    public ChessPiece replacePromotedPiece(String type){
+        if(promoted == null){
+            throw new IllegalStateException("There is no piece to be promoted.");
+        }
+        if(!type.equals("R") && !type.equals("N") && !type.equals("B") && !type.equals("Q")){
+            throw new InvalidParameterException("Invalid type for promotion");
+        }
+        
+        Position pos = promoted.getChessPosition().toPosition();
+        Piece p = board.removePiece(pos);
+        piecesOnTheBoard.remove(p);
+        
+        ChessPiece newPiece = newPiece(type, promoted.getColor());
+        board.placePiece(newPiece, pos);
+        piecesOnTheBoard.add(newPiece);
+        
+        return newPiece;
+    }
+    
+    private ChessPiece newPiece(String type, Color color){
+        if (type.equals("R")) return new Rook(board, color);
+        if (type.equals("N")) return new Knight(board, color);
+        if (type.equals("B")) return new Bishop(board, color);
+        return new Queen(board, color);
     }
     
     private Piece makeMove(Position source, Position target){
@@ -309,14 +351,14 @@ public class ChessMatch {
         for(int i = 0; i < board.getColumns(); i++){
             switch(i){
                     case 0:
-                        placeNewPiece('a', 8, new Rook(board, black));
-                        placeNewPiece('a', 7, new Pawn(board, black, this));
-                        placeNewPiece('a', 2, new Pawn(board, white, this));
+                        //placeNewPiece('a', 8, new Rook(board, black));
+                        //placeNewPiece('a', 7, new Pawn(board, black, this));
+                        placeNewPiece('a', 7, new Pawn(board, white, this));
                         placeNewPiece('a', 1, new Rook(board, white));
                         break;
                     case 1:
-                        placeNewPiece('b', 8, new Knight(board, black));
-                        placeNewPiece('b', 7, new Pawn(board, black, this));
+                        //placeNewPiece('b', 8, new Knight(board, black));
+                        //placeNewPiece('b', 7, new Pawn(board, black, this));
                         placeNewPiece('b', 2, new Pawn(board, white, this));
                         placeNewPiece('b', 1, new Knight(board, white));
                         break;
@@ -347,14 +389,14 @@ public class ChessMatch {
                     case 6:
                         placeNewPiece('g', 8, new Knight(board, black));
                         placeNewPiece('g', 7, new Pawn(board, black, this));
-                        placeNewPiece('g', 2, new Pawn(board, white, this));
-                        placeNewPiece('g', 1, new Knight(board, white));
+                        //placeNewPiece('g', 2, new Pawn(board, white, this));
+                        //placeNewPiece('g', 1, new Knight(board, white));
                         break;
                     case 7:
                         placeNewPiece('h', 8, new Rook(board, black));
                         placeNewPiece('h', 7, new Pawn(board, black, this));
-                        placeNewPiece('h', 2, new Pawn(board, white, this));
-                        placeNewPiece('h', 1, new Rook(board, white));
+                        //placeNewPiece('h', 2, new Pawn(board, white, this));
+                        //placeNewPiece('h', 1, new Rook(board, white));
                         break;
             }
         }
